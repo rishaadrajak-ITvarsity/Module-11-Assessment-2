@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Claire's Reviews</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="css/style.css"/>
+
+    </head>
+    <body onload="init()">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
+            <div class="container">
+                <a class="navbar-brand" href="#">FoodFanatix</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarLinks">
+                    <div class="navbar-nav">
+                        <a id="linkAll" class="nav-link active" aria-current="page" href="#postsSection">All</a>
+                        <a id="linkPopular" class="nav-link" href="#postsSection">Popular</a>
+                        <a id="linkTopPick" class="nav-link" href="#postsSection">Top Picks</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="card my-3 mx-auto border-0" style="max-width: 640px;">
+                <div class="row">
+                    <div class="col-md-4 col-sm-8 text-center">
+                        <img id='selfie' src="img/selfie-sm.jpeg" class="img-fluid rounded-4 mt-3" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body text-center text-md-start">
+                            <h5 class="card-title">Hey there! I'm Claire.</h5>
+                            <p class="card-text">
+                                I am a blogger, vlogger, traveller, and most importantly, Food Fanatic. I love to travel 
+                                to new places, experience new cultures and try new foods. I write about my journey so 
+                                that you know what's good and where to get it. <em>Starfish on a stick, anyone?</em>
+                                <br>
+                                I also have this website, strictly for food reviews. Check it out and let me know what 
+                                you think.
+                            </p>
+                            <p class="card-text"><small class="text-muted">Last updated 27 mins ago</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid row mx-auto">
+            <div class="col text-center" id="postsSection">
+                <h4 class="placeholder-wave">Loading</h4>
+                
+            </div>
+        </div>
+        <footer class="mt-5 py-4 text-light bg-custom">
+            <div class="container">
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col-md-4 col-sm-12 text-md-start text-center lh-lg">
+                        <a href="#" class="d-block text-decoration-none text-light">Claire's Blog</a>
+                        <a href="#" class="d-block text-decoration-none text-light">Claire's Portfolio</a>
+                        <a href="#" class="d-block text-decoration-none text-light">Claire's Ecommerce</a>
+                    </div>
+                    <div class="col-md-4 col-sm-12 fs-1 text-center align-self-center">
+                        <i class="fab fa-facebook-square"></i>
+                        <i class="fab fa-steam-square"></i>
+                        <p class="fab fa-github-square"></p>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </footer>
+
+        <script src="js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            let root = "https://foodish-api.herokuapp.com/";
+            outputImg = [] // 2D array
+
+            let posts = [
+                {   country: "south africa", 
+                    category: "dessert",
+                    id: 0, 
+                    review: "Chateau Gateaux, Durban",
+                    score: 5,
+                    likes: 561,
+                    description: "Serving great desserts for all those special occasions. They're renowned for their exceptional flavour and unique, freshly-frozen process, which means delicious goodies for all your sweet-teeth.",
+                    imgLinks: []
+                },
+                {   country: "india",
+                    category: "biryani",
+                    id: 1, 
+                    review: "Bombay Canteen, Mumbai",
+                    score: 3,
+                    likes: 239,
+                    description: "A definite checkout for some traditional indian cuisine. Their core philosophy is to showcase the incredible diversity of India it's many local and seasonal ingredients that are indigenous to India, it a culinary experience you won't soon forget.",
+                    imgLinks: []
+                },
+                {   country: "usa", 
+                    category: "burger",
+                    id: 2, 
+                    review: "JG Melon, New York",
+                    score: 5,
+                    likes: 515,
+                    description: "Let's get real for a moment. Sometimes you just NEED a burger. Something consistently wonderful - both meaty and treaty. This is one for the FoodieFanatix that want to get back to the basics.",
+                    imgLinks: []
+                },
+                {   country: "italy", 
+                    category: "pasta",
+                    id: 3, 
+                    review: "Mulin De Milan, Milan",
+                    score: 5,
+                    likes: 994,
+                    description: "Proper Italian food is made with love and care. That's why this pasta restaurant only uses homemade sauces, by their talented chefs. Emphasis is on the fresh and seasonal products, embracing Venetian tradition, offering a different way of interpreting Italian food.",
+                    imgLinks: []
+                },
+                {   country: "china", 
+                    category: "rice",
+                    id: 4, 
+                    review: "M on the Bund, Shanghai",
+                    score: 4,
+                    likes: 1272,
+                    description: "Their generous portions, authentic ingredients and abundance of flavours have continued to gain the support of the local community over the years. If you are looking for a traditional Eastern experience, this is the place to go.",
+                    imgLinks: []
+                },
+                {   country: "brazil", 
+                    category: "butter-chicken",
+                    id: 5, 
+                    review: "CT Boucherie, Rio De Janeiro",
+                    score: 3,
+                    likes: 233,
+                    description: "Experience the culture of Brazil. Brazil is all about Samba. I joined them one weekend for the Festa Friday and Salsa Saturday's. The food is great and the live entertainment is truly unique.",
+                    imgLinks: []
+                },
+                
+            ]; // this data would come from the database
+            function init(){
+                document.getElementById("linkAll").addEventListener("click", () => {getAllPosts();setActive()});
+                document.getElementById("linkPopular").addEventListener("click", () => {getPopularPosts();setActive()});
+                document.getElementById("linkTopPick").addEventListener("click", () => {getTopPosts();setActive()});
+
+                getAllPosts();
+                setSelfie()
+            }
+
+            function setSelfie(){
+                // change image resolution according to screen size
+                //console.log(window.innerWidth)
+                const selfieImg = document.getElementById('selfie')
+                if(window.innerWidth>575 && window.innerWidth<995){
+                    selfieImg.setAttribute('src','img/selfie-md.jpg')
+                }
+                if(window.innerWidth>996){
+                    selfieImg.setAttribute('src','img/selfie-lg.jpg')
+                }
+            }
+
+            function setActive(clicked){
+                const all = document.getElementById('linkAll')
+                const popular = document.getElementById('linkPopular')
+                const topPick = document.getElementById('linkTopPick')
+
+                let navLinks = [all, popular, topPick]
+
+                navLinks.forEach(element => {
+                    element.classList = 'nav-link';
+                });
+
+                switch(clicked){
+                    case 'linkAll': all.classList.add(' active'); break;
+                    case 'linkPopular': popular.classList.add(' active'); break;
+                    case 'linkTopPick': topPick.classList.add(' active'); break;
+                }
+            }
+
+            async function getPosts(){
+                // use fetch api to get images and call display function
+                // create 2D array, r=6, c=5
+                let noOfPosts = 6
+                let noOfImg = 5
+                outputImg = Array(noOfPosts).fill().map(() => Array(noOfImg))  
+
+                for(p=0; p<noOfPosts; p++){
+                    for(i=0; i<noOfImg; i++){
+                        const resp = await fetch(root+"api/images/"+posts[p].category);
+                        const json = await resp.json();
+                        posts[p].imgLinks[i] = (json.image);
+
+                        outputImg[p][i] = `
+                                <div class="carousel-item ${i===0?"active":""}">
+                                    <img src="${posts[p].imgLinks[i]}" class="d-block w-100" alt="${posts[p].category+' '+(i+1)}">
+                                </div>
+                        `       
+                                // THIS CODE DOES NOT WORK AND I DON'T KNOW WHY.
+                                // fetch(root+"api/images/"+posts[i].category)
+                                // .then(function(response){
+                                //     return response.json();
+                                // })
+                                // .then(function(json){
+                                //     //posts[i].imgLinks.push(json.image); // DOES NOT WORK
+                                //     //posts[0].imgLinks.push(json.image); // WORKS
+                                // })
+                                        
+                    }
+                    displayPosts(posts, p, outputImg)
+                }
+            }
+            function getAllPosts(){
+                getPosts();
+                //displayPosts() here runs async before links have been fetched, so posts don't have images
+            }
+
+            function displayPosts(arr, p, imgArr){
+                /*
+                 * displays one post at a time
+                 * arr is array of posts to be displayed
+                 * p is index of current post
+                 * imgArr is array of images wrapped in html
+                 */
+
+                let output = `<hr class='mt-4'>`;
+
+                //for (let p=0; p<arr.length; p++) { // removed to only display one post at a time; 
+                    // ^- was giving errors during load since all posts were refreshed 
+                    
+                output += `
+                    <p class="h4 py-3 text-capitalize">${arr[p].category} in ${arr[p].country}</p>
+                    <p>${getStars(arr[p].score)}</p>
+                    <div id="carouselFood${p}" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                `;
+                
+                for (let i=0; i<imgArr[0].length; i++) {
+                    output += imgArr[p][i]
+                }
+        
+                output +=`
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselFood${p}" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselFood${p}" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="h5 mt-3 mb-1">${arr[p].review}</p>
+                    <p>${arr[p].description}</p>
+                    <p class="fw-semibold" id="likeText${arr[p].id}">${arr[p].likes} ${(arr[p].likes===1)?" LIKE":" LIKES"}</p>
+                    <button id="btn${arr[p].id}"  type="button" class="btn bg-custom text-light" onclick="likePost(this)">LIKE</button>
+                `;
+                //} removed for-loop
+
+                if(p===0) {
+                    // first post, clear 'loading' text
+                    document.getElementById('postsSection').innerHTML = ``
+                }
+
+                document.getElementById('postsSection').innerHTML += output
+            }
+
+            function getStars(stars){
+                // display stars for post score
+                let starHtml = ``
+                const maxStars = 5
+                for(let c=0;c<stars;c++){
+                    starHtml+=`<i class="fas fa-star"></i>`
+                }
+                for(let d=0;d<(maxStars-stars);d++){
+                    starHtml+=`<i class="fa-regular fa-star"></i>`
+                }
+                return starHtml
+            }
+
+            function likePost(btn){
+                /*
+                 * takes button object param
+                 * get id, text from button
+                 * use id of button to link to post
+                 * get posts 'likes' value for post by id
+                 * check if text is like or unlike
+                 * like: increment likes by 1
+                 * change text to unlike and update text on screen
+                 * unlike: decrement likes by 1
+                 * change text to like and update text on screen
+                 */
+
+                let id = parseInt(btn.id.replace('btn',''))  // id matches index
+                const likeText = document.getElementById('likeText'+id)
+
+                if(btn.innerText==='LIKE'){
+                    // when user clicks LIKE
+                    btn.innerText = 'UNLIKE'
+                    posts[id].likes++
+                }else{
+                    btn.innerText = 'LIKE'
+                    posts[id].likes--
+                }
+                likeText.innerHTML = `
+                        ${btn.innerText==='UNLIKE'?`<i class="fas fa-heart fs-5"></i> `:``} 
+                        ${posts[id].likes} 
+                        ${(posts[id].likes===1)?" LIKE":" LIKES"}
+                    `
+            }
+
+            function getPopularPosts(){
+                // sort posts by likes
+                sortPosts('likes');
+            }
+
+            function getTopPosts(){
+                // sort posts by score
+                sortPosts('score');
+            }
+
+            function sortPosts(value){
+                // take value and order descending
+                // value is 'likes' or 'score'
+                sortedPostsArr = []
+                sortedPostsArr[0] = posts[0] // initialise
+                
+                for (let p=1; p<posts.length; p++) {
+                    for (let k=0; k<sortedPostsArr.length; k++) {
+                        if(posts[p][value]>sortedPostsArr[k][value]){
+                            sortedPostsArr.splice(k,0,posts[p])
+                            break // end k-loop
+                        }else{
+                            // < or = and last iteration
+                            if(posts[p][value]<=sortedPostsArr[k][value] && k===sortedPostsArr.length-1){
+                                // new lowest value
+                                sortedPostsArr.splice(k+1,0,posts[p])
+                                break
+                            }
+                        }
+                    }
+                }
+                // debug
+                /*
+                for (let m = 0; m < posts.length; m++) {
+                    console.log(m+' '+value+' '+posts[m][value])
+                }
+                console.log('-----')
+                for (let m = 0; m < sortedPostsArr.length; m++) {
+                    console.log(m+' '+value+' '+sortedPostsArr[m][value])
+                }
+                */
+
+                sortedImgArr = Array(outputImg.length);
+
+                for (let j=0; j<outputImg.length; j++) {
+                    let postID = posts[j].id
+                    for(let b=0; b<sortedPostsArr.length; b++){
+                        if(sortedPostsArr[b].id === postID){
+                            // found
+                            sortedImgArr[b] = outputImg[j]
+                            //console.log("sortedID: "+sortedPostsArr[b].id+' === '+"postsID: "+posts[j].id)
+                            break
+
+                        }else{
+                            //console.log("sortedID: "+sortedPostsArr[b].id+' != '+"postsID: "+posts[j].id)
+                        }
+                    }
+                    //console.log("\n")
+                }
+
+                /*  debug
+                    console.log("sorted posts")
+                    sortedPostsArr.forEach(post => {console.log(post.category+" "+post.likes)})
+                    console.log("sorted img")
+                    sortedImgArr.forEach(imgList => {
+                        console.log(imgList[0])
+                    });
+                */
+
+                // send sortedImgArr to display
+
+                for (let h=0; h<sortedPostsArr.length; h++) {
+                    displayPosts(sortedPostsArr, h, sortedImgArr)
+                }
+            }
+        </script>
+    </body>
+</html>
+
+<!--
+                    /* displayPosts()
+                    this method checks too early for image links
+                    arr[i].imgLinks.forEach(link => {
+                        output += `
+                                <div class="carousel-item ${link === arr[i].imgLinks[0]?"active":""}">
+                                    <img src="${link}" class="d-block w-100" alt="${arr[i].category+" "+(i+1)}">
+                                </div>
+                        `
+                        // output += `
+                        //         <div class="carousel-item ${link === arr[i].imgLinks[0]?"active":""}">
+                        //             <img src="${getImg(this, link)}" class="d-block w-100" alt="${arr[i].category+" "+(i+1)}">
+                        //         </div>
+                        // `
+                    })
+                    
+                    for (let k = 0; k < arr[i].imgLinks.length; k++) {
+                        let link = arr[i].imgLinks[k]
+                        // output += `
+                        //         <div class="carousel-item ${link === arr[i].imgLinks[0]?"active":""}">
+                        //             <img src="${link}" class="d-block w-100" alt="${arr[i].category+" "+(i+1)}">
+                        //         </div>
+                        // `
+                        // console.log(arr[i].category+"")
+                        // console.log(arr[i].imgLinks[k])
+                        console.log("  k:"+k)
+                        console.log(arr[i].imgLinks.length)
+                    }*/
+            /*
+            async function getImg(img, path){
+                const response = await fetch(path)
+                const blob = await response.blob()
+                if(!response.ok){
+                    throw new Error(`HTTP Error! Status : ${response.status}`)
+                }
+                img.src = URL.createObjectURL(blob)
+                console.log("path : "+path)
+                console.log("ObjectURL : "+img.src)
+
+            }*/
+-->
