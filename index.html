@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Claire's Reviews</title>
+        <link rel="icon" type="image/png" href="logo.png">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="fontawesome/css/all.min.css">
         <link rel="stylesheet" href="css/style.css"/>
@@ -31,7 +32,7 @@
                     <div class="col-md-4 col-sm-8 text-center">
                         <img id='selfie' src="img/selfie-sm.jpeg" class="img-fluid rounded-4 mt-3" alt="...">
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8 pt-md-4">
                         <div class="card-body text-center text-md-start">
                             <h5 class="card-title">Hey there! I'm Claire.</h5>
                             <p class="card-text">
@@ -249,7 +250,7 @@
                     </div>
 
                     <p class="h5 mt-3 mb-1">${arr[p].review}</p>
-                    <p>${arr[p].description}</p>
+                    <p class='container'>${arr[p].description}</p>
                     <p class="fw-semibold" id="likeText${arr[p].id}">${arr[p].likes} ${(arr[p].likes===1)?" LIKE":" LIKES"}</p>
                     <button id="btn${arr[p].id}"  type="button" class="btn bg-custom text-light" onclick="likePost(this)">LIKE</button>
                 `;
